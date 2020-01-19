@@ -6,7 +6,6 @@ import Item from '../../components/Items/Item/Item';
 const TVShowInput = (props) => {
 
   const valueEntered = null;
-   // eslint-disable-next-line
   const [valueFromInput, setValueFromInput] = useState(valueEntered);
 
   let moviesList = null;
@@ -51,6 +50,6 @@ const TVShowInput = (props) => {
       }
     </Fragment>
   );
-}
+};
 
 export default TVShowInput;

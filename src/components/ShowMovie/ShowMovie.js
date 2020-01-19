@@ -43,6 +43,6 @@ const ShowMovie = (props) => {
       }
     </Fragment>
   );
-}
+};
 
 export default ShowMovie;
