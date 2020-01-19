@@ -1,8 +1,11 @@
+import React, { Fragment } from 'react';
+import { NavLink } from 'react-router-dom';
 
-import React from 'react';
-
-const Item = ({name}) => (
-    <li className='itemLi'><a href='#'>{name}</a></li>
+const Item = ({name, id, clicked}) => (
+    <Fragment>
+    <NavLink to={'/shows/' + id} onClick={clicked}>{name}</NavLink>
+    <br></br>
+    </Fragment>
 );
 
 export default Item;

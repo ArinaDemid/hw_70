@@ -1,40 +1,36 @@
-import React, {useState, Fragment, useEffect} from 'react';
+import React, {useState, Fragment} from 'react';
 import { Form, FormGroup, Label, Input} from 'reactstrap';
 import axios from 'axios';
 import Item from '../../components/Items/Item/Item';
 
-let movieList = [];
-// let movieAct = null;
-
 const TVShowInput = (props) => {
 
   const valueEntered = null;
+   // eslint-disable-next-line
   const [valueFromInput, setValueFromInput] = useState(valueEntered);
+
+  let moviesList = null;
+  const [movies, setMovies] = useState(moviesList);
+  
   const valueChanged = (value) => {
-    // console.log(value);
-    // movieAct = value;
-    setValueFromInput(value);
     fetchData(value);
-    
-    // console.log(valueFromInput);
+    setValueFromInput(value);
   };
 
   const fetchData = async (value) => {
     const response = await axios.get(`http://api.tvmaze.com/search/shows?q=${value}`);
-    // console.log(response.data)
-    const movies = [...response.data];
-    // movieList = [];
-    movies.forEach(movie => {
+
+    let movieList = [];
+    response.data.forEach(movie => {
       movieList.push({name: movie.show.name, key: movie.show.id});
     });
-    console.log(movieList);
+    setMovies(movieList);
   };
 
-
-  useEffect(() => {
-    // fetchData(valueFromInput);
-    movieList = [];
-  }, [valueFromInput]);
+  const closeAutocomplete = () => {
+    const movieClean = null;
+    setMovies(movieClean);
+  };
 
   return (
     <Fragment>
@@ -45,10 +41,10 @@ const TVShowInput = (props) => {
             onChange={(event) => valueChanged(event.target.value)}/>
         </FormGroup>
       </Form>
-      { movieList.length !==0 ? 
+      { movies ? 
         <ul style={{listStyleType: 'none', border: '1px solid grey'}}>
-          {movieList.map(movie => (
-            <Item key={movie.key} name={movie.name}/>
+          {movies.map(movie => (
+            <Item key={movie.key} name={movie.name} id={movie.key} clicked={closeAutocomplete}/>
           ))}
         </ul>
         : null 
